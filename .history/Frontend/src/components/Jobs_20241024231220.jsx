@@ -1,1 +1,0 @@
-import FilterCard from './FilterCard';
