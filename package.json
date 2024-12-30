@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon Backend/index.js",
     "build": "npm install && npm install --prefix Frontend && npm run build --prefix Frontend",
-    "start": "nodemon Backend/index.js"
+    "start": "node src/index.js"
+
   },
   "author": "Shubham A Patil",
   "license": "ISC",
