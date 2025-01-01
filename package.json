@@ -1,14 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "It is a backend of our job portal project",
-  "main": "index.js",
+  "description": "Backend of our job portal project",
+  "main": "Backend/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon Backend/index.js",
+    "dev": "nodemon ./Backend/index.js",
     "build": "npm install && npm install --prefix Frontend && npm run build --prefix Frontend",
-    "start": "node src/index.js"
-
+    "start": "node ./Backend/index.js"
   },
   "author": "Shubham A Patil",
   "license": "ISC",
@@ -27,9 +26,14 @@
     "mongoose": "^8.7.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.15",
-    "nodemon": "^3.1.4",
-    "react-tiny-popover": "^8.1.2",
-    "react-toastify": "^10.0.6",
-    "sonner": "^1.5.0"
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=16.x"
+  },
+  "keywords": ["job portal", "backend", "express", "mern stack"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abp197/Job_bridge.git"
   }
 }
