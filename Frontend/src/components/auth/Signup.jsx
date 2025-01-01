@@ -1,13 +1,21 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import Navbar from '../shared/Navbar';
-import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Button, CircularProgress } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { USER_API_END_POINT } from '../../utils/constant.js';
-import { toast } from 'sonner';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLoading } from '../redux/authSlice.js';
+import React, { useEffect, useState } from "react";
+import Navbar from "../shared/Navbar";
+import {
+  TextField,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Button,
+  CircularProgress,
+} from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { USER_API_END_POINT } from "../../utils/constant.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../redux/authSlice.js";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -16,22 +24,39 @@ const Signup = () => {
     phoneNumber: "",
     password: "",
     role: "",
-    file: ""
+    file: null,
   });
-  const { loading, user } = useSelector(store => store.auth);
+
+  const { loading, user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Input change handler
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  // File change handler
   const changeFileHandler = (e) => {
     setInput({ ...input, file: e.target.files?.[0] });
   };
 
+  // Form submission handler
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // Validate form data
+    if (
+      !input.fullname ||
+      !input.email ||
+      !input.phoneNumber ||
+      !input.password ||
+      !input.role
+    ) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
@@ -42,20 +67,26 @@ const Signup = () => {
       formData.append("file", input.file);
     }
 
+    // Debug form data
+    console.log("Form Data:");
+    formData.forEach((value, key) => console.log(key, value));
+
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
-        headers: { 'Content-Type': "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
+
+      // Handle success response
       if (res.data.success) {
         navigate("/login");
-        toast.success(res.data.message);
+        alert(res.data.message);
       }
     } catch (error) {
-      // Log detailed error response
-      console.log("Error details:", error.response);
-      toast.error(error.response.data.message || "An error occurred");
+      // Debugging error response
+      console.error("Error Response:", error.response);
+      alert(error.response?.data?.message || "An error occurred");
     } finally {
       dispatch(setLoading(false));
     }
@@ -68,11 +99,22 @@ const Signup = () => {
   }, [user, navigate]);
 
   return (
-    <div className="bg-cover bg-center" style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/blue-toned-set-paper-sheets-with-copy-space_23-2148320447.jpg")' }}>
+    <div
+      className="bg-cover bg-center"
+      style={{
+        backgroundImage:
+          'url("https://img.freepik.com/free-photo/blue-toned-set-paper-sheets-with-copy-space_23-2148320447.jpg")',
+      }}
+    >
       <Navbar />
-      <div className='flex items-center justify-center min-h-screen'>
-        <form onSubmit={submitHandler} className=' border border-gray-200 rounded-lg shadow-lg p-8 my-10 max-w-md w-full'>
-          <h1 className='font-bold text-2xl mb-5 text-center text-gray-800'>Create Your Account</h1>
+      <div className="flex items-center justify-center min-h-screen">
+        <form
+          onSubmit={submitHandler}
+          className="border border-gray-200 rounded-lg shadow-lg p-8 my-10 max-w-md w-full"
+        >
+          <h1 className="font-bold text-2xl mb-5 text-center text-gray-800">
+            Create Your Account
+          </h1>
 
           {/* Full Name */}
           <TextField
@@ -125,7 +167,7 @@ const Signup = () => {
           />
 
           {/* Role */}
-          <FormControl component="fieldset" className='my-4'>
+          <FormControl component="fieldset" className="my-4">
             <FormLabel component="legend">Role</FormLabel>
             <RadioGroup
               name="role"
@@ -133,8 +175,16 @@ const Signup = () => {
               onChange={changeEventHandler}
               row
             >
-              <FormControlLabel value="student" control={<Radio />} label="Student" />
-              <FormControlLabel value="recruiter" control={<Radio />} label="Recruiter" />
+              <FormControlLabel
+                value="student"
+                control={<Radio />}
+                label="Student"
+              />
+              <FormControlLabel
+                value="recruiter"
+                control={<Radio />}
+                label="Recruiter"
+              />
             </RadioGroup>
           </FormControl>
 
@@ -172,8 +222,13 @@ const Signup = () => {
             </Button>
           )}
 
-          <div className='text-center'>
-            <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600 hover:underline'>Login</Link></span>
+          <div className="text-center">
+            <span className="text-sm">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-600 hover:underline">
+                Login
+              </Link>
+            </span>
           </div>
         </form>
       </div>
@@ -182,3 +237,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
