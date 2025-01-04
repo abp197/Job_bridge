@@ -12,27 +12,25 @@ import path from "path";
 dotenv.config();
 
 const app = express();
-
-const _dirname = path.resolve();
+const __dirname = path.resolve();
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// CORS configuration
+// CORS Configuration
 const corsOptions = {
-    origin: [
-        "http://localhost:5173", // Local development
-        "https://job-bridge-3.onrender.com" // Deployed frontend
-    ],
-    credentials: true
+    origin: [process.env.FRONTEND_URL || "http://localhost:5173"], // Allow multiple origins for scalability
+    credentials: true, // Allow credentials (cookies, headers, etc.)
+    methods: ["GET", "POST", "PUT", "DELETE"], // Explicitly allow methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify headers
 };
 app.use(cors(corsOptions));
 
-// Health check route
-app.get('/health', (req, res) => {
-    res.status(200).json({ message: 'Server is healthy' });
+// Health Check Route
+app.get("/health", (req, res) => {
+    res.status(200).json({ message: "Server is healthy" });
 });
 
 // API Routes
@@ -41,37 +39,36 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
-// Serve static files for frontend
-app.use(express.static(path.join(_dirname, "/Frontend/dist")));
-
-// Handle all other requests to frontend
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(_dirname, "Frontend", "dist", "index.html"));
+// Serve Frontend
+app.use(express.static(path.join(__dirname, "/Frontend/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "Frontend", "dist", "index.html"));
 });
 
-// Error handling middleware
+// Error Handling Middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error("Error:", err.stack || err);
     const statusCode = err.status || 500;
-    const message = err.message || 'Something went wrong!';
-    res.status(statusCode).json({ message });
+    res.status(statusCode).json({
+        success: false,
+        message: err.message || "Internal Server Error",
+    });
 });
 
-// Server startup
+// Server Startup
 const PORT = process.env.PORT || 8000;
 
 const startServer = async () => {
     try {
-        await connectDB(); // Ensure DB connection is established
+        await connectDB(); // Connect to the database
         app.listen(PORT, () => {
-            console.log(`Server is running at port ${PORT}`);
+            console.log(`Server is running at http://localhost:${PORT}`);
         });
     } catch (error) {
-        console.error('Error starting server:', error);
-        process.exit(1); // Exit the process with failure
+        console.error("Error starting server:", error);
+        process.exit(1); // Exit the process on failure
     }
 };
 
 startServer();
-
 
