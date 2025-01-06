@@ -11,7 +11,6 @@ const AdminJobsTable = () => {
     const { allAdminJobs, searchJobByText } = useSelector(store => store.job);
     const navigate = useNavigate();
 
-    // Filter jobs based on search text
     const filteredJobs = useMemo(() => {
         return allAdminJobs?.filter(job => {
             if (!searchJobByText) return true;
@@ -24,21 +23,22 @@ const AdminJobsTable = () => {
 
     const columnHelper = createColumnHelper();
 
-    // Define table columns
     const columns = [
         columnHelper.accessor('company.name', {
             header: 'Company Name',
             cell: ({ row }) => (
-                <div className="flex items-center">
+                <div className="flex items-center space-x-3">
                     <Avatar.Root className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-400 shadow-md">
                         <Avatar.Image 
                             src={row.original.company.logoUrl} 
                             alt={row.original.company.name} 
                             className="object-cover w-full h-full rounded-full"
                         />
-                        <Avatar.Fallback delayMs={600} className="text-white font-semibold">{row.original.company.name[0]}</Avatar.Fallback>
+                        <Avatar.Fallback delayMs={600} className="text-white font-semibold">
+                            {row.original.company.name[0]}
+                        </Avatar.Fallback>
                     </Avatar.Root>
-                    <span className="ml-3 font-medium">{row.original.company.name}</span>
+                    <span className="font-medium">{row.original.company.name}</span>
                 </div>
             ),
         }),
@@ -51,7 +51,7 @@ const AdminJobsTable = () => {
         columnHelper.accessor('createdAt', {
             header: 'Date',
             cell: ({ getValue }) => (
-                <span className="text-gray-500">{getValue().split("T")[0]}</span> // Format the date
+                <span className="text-gray-500">{getValue().split("T")[0]}</span>
             ),
         }),
         columnHelper.accessor('actions', {
@@ -66,11 +66,17 @@ const AdminJobsTable = () => {
                         </Popover.Trigger>
                         <Popover.Portal>
                             <Popover.Content className="w-32 p-2 bg-white rounded-lg shadow-lg border border-gray-200">
-                                <div onClick={() => navigate(`/admin/companies/${row.original._id}`)} className="flex items-center gap-2 w-fit cursor-pointer hover:bg-gray-100 p-2 rounded-md">
+                                <div 
+                                    onClick={() => navigate(`/admin/companies/${row.original._id}`)} 
+                                    className="flex items-center gap-2 w-fit cursor-pointer hover:bg-gray-100 p-2 rounded-md"
+                                >
                                     <Edit2 className="w-4" />
                                     <span>Edit</span>
                                 </div>
-                                <div onClick={() => navigate(`/admin/jobs/${row.original._id}/applicants`)} className="flex items-center w-fit gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-md mt-2">
+                                <div 
+                                    onClick={() => navigate(`/admin/jobs/${row.original._id}/applicants`)} 
+                                    className="flex items-center w-fit gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-md mt-2"
+                                >
                                     <Eye className="w-4" />
                                     <span>Applicants</span>
                                 </div>
@@ -83,7 +89,6 @@ const AdminJobsTable = () => {
         }),
     ];
 
-    // Create table instance using the new Tanstack API
     const table = useReactTable({
         data: filteredJobs || [],
         columns,
@@ -91,7 +96,7 @@ const AdminJobsTable = () => {
     });
 
     return (
-        <div className="shadow-md rounded-lg overflow-hidden">
+        <div className="overflow-x-auto shadow-md rounded-lg">
             <table className="min-w-full bg-white border-collapse">
                 <caption className="text-left font-semibold p-4 text-xl text-gray-700 bg-gray-100 border-b">
                     A list of your recently posted jobs
@@ -100,7 +105,10 @@ const AdminJobsTable = () => {
                     {table.getHeaderGroups().map(headerGroup => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
-                                <th key={header.id} className="px-6 py-3 text-left text-sm font-medium text-gray-600">
+                                <th 
+                                    key={header.id} 
+                                    className="px-6 py-3 text-left text-sm font-medium text-gray-600"
+                                >
                                     {header.isPlaceholder ? null : header.column.columnDef.header}
                                 </th>
                             ))}
@@ -109,9 +117,15 @@ const AdminJobsTable = () => {
                 </thead>
                 <tbody>
                     {table.getRowModel().rows.map(row => (
-                        <tr key={row.id} className="hover:bg-gray-50 transition-colors">
+                        <tr 
+                            key={row.id} 
+                            className="hover:bg-gray-50 transition-colors"
+                        >
                             {row.getVisibleCells().map(cell => (
-                                <td key={cell.id} className="px-6 py-4 text-sm text-gray-700">
+                                <td 
+                                    key={cell.id} 
+                                    className="px-6 py-4 text-sm text-gray-700"
+                                >
                                     {cell.column.columnDef.cell ? cell.column.columnDef.cell(cell) : cell.getValue()}
                                 </td>
                             ))}
@@ -124,3 +138,4 @@ const AdminJobsTable = () => {
 };
 
 export default AdminJobsTable;
+
