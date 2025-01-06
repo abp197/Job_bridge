@@ -15,17 +15,17 @@ const Companies = () => {
 
     useEffect(() => {
         dispatch(setSearchCompanyByText(input));
-    }, [input]);
+    }, [input, dispatch]);
 
     return (
         <div className="bg-cover bg-center min-h-screen" style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2017/03/28/12/10/chairs-2181951_960_720.jpg')" }}>
             <Navbar />
-            <Container maxWidth="lg" className="my-10  bg-opacity-80 rounded-lg">
+            <Container maxWidth="lg" className="my-10 bg-opacity-80 rounded-lg">
                 <Paper elevation={3} className="p-4 rounded-lg">
-                    <Typography variant="h4" component="h1" className="mb-3 font-bold text-gray-800">
+                    <Typography variant="h4" component="h1" className="mb-3 font-bold text-gray-800 text-center sm:text-left">
                         Companies Management
                     </Typography>
-                    <Grid container justifyContent="space-between" alignItems="center" className="mb-5">
+                    <Grid container justifyContent="space-between" alignItems="center" spacing={2} className="mb-5">
                         <Grid item xs={12} md={6}>
                             <TextField
                                 label="Filter by name"
@@ -34,9 +34,10 @@ const Companies = () => {
                                 fullWidth
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
+                                className="w-full"
                             />
                         </Grid>
-                        <Grid item xs={12} md={6} className="text-right">
+                        <Grid item xs={12} md={6} className="text-center sm:text-right">
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -55,3 +56,4 @@ const Companies = () => {
 };
 
 export default Companies;
+
