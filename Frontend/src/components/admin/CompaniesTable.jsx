@@ -22,13 +22,11 @@ const CompaniesTable = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-            <div
-                className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-xl"
-            >
-                <div className="absolute inset-0 "></div> {/* Dark overlay */}
+            <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-xl">
+                <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
                 <div className="relative z-10 p-6">
-                    <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                        <caption className="text-left p-4 text-gray-600 font-bold">
+                    <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-x-auto">
+                        <caption className="text-left p-4 text-gray-600 font-semibold text-lg">
                             A list of your recent registered companies
                         </caption>
                         <thead>
@@ -74,3 +72,4 @@ const CompaniesTable = () => {
 };
 
 export default CompaniesTable;
+
