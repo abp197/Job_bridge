@@ -15,15 +15,17 @@ const AdminJobs = () => {
 
   useEffect(() => {
     dispatch(setSearchJobByText(input));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-r from-gray-100 to-indigo-50 bg-gray-400" style={{ backgroundImage: 'url("")' }}>
-            
+    <div
+      className="relative min-h-screen bg-gradient-to-r from-gray-100 to-indigo-50"
+      style={{ backgroundImage: 'url("")' }}
+    >
       <Navbar />
-      <div className='max-w-6xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg'>
-        <div className='flex items-center justify-between my-5'>
+      <div className="max-w-6xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg">
+        <div className="flex flex-col md:flex-row items-center justify-between my-5 gap-4">
           {/* Search input with icon */}
           <div className="relative w-full max-w-md">
             <input
@@ -39,7 +41,12 @@ const AdminJobs = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2h8m-8 4h.01" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 14l2-2m0 0l2-2m-2 2h8m-8 4h.01"
+              />
             </svg>
           </div>
 
@@ -53,7 +60,9 @@ const AdminJobs = () => {
         </div>
 
         {/* Jobs Table */}
-        <AdminJobsTable />
+        <div className="overflow-x-auto">
+          <AdminJobsTable />
+        </div>
       </div>
     </div>
   );
