@@ -12,7 +12,7 @@ import { toast } from 'sonner'; // Assuming you want to use toast for notificati
 const Applicants = () => {
     const params = useParams();
     const dispatch = useDispatch();
-    const { applicants } = useSelector(store => store.application);
+    const { applicants } = useSelector((store) => store.application);
     const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Applicants = () => {
                 dispatch(setAllApplicants(res.data.job)); // Assuming res.data.job contains the applicants data
             } catch (error) {
                 console.log(error);
-                toast.error("Failed to fetch applicants."); // Notify user on error
+                toast.error('Failed to fetch applicants.'); // Notify user on error
             } finally {
                 setLoading(false); // Set loading to false after fetching
             }
@@ -33,14 +33,20 @@ const Applicants = () => {
     }, [dispatch, params.id]); // Add dependencies
 
     return (
-        <div>
+        <div className="flex flex-col min-h-screen bg-gray-50">
             <Navbar />
-            <div className='max-w-7xl mx-auto'>
-                <h1 className='font-bold text-xl my-5'>Applicants {applicants?.applications?.length || 0}</h1>
+            <div className="flex flex-col flex-grow px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto">
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4">
+                    Applicants ({applicants?.applications?.length || 0})
+                </h1>
                 {loading ? (
-                    <p>Loading...</p> // Loading message
+                    <div className="flex items-center justify-center h-48">
+                        <p className="text-gray-500 text-center text-sm sm:text-base">Loading...</p>
+                    </div>
                 ) : (
-                    <ApplicantsTable />
+                    <div className="overflow-x-auto">
+                        <ApplicantsTable />
+                    </div>
                 )}
             </div>
         </div>
