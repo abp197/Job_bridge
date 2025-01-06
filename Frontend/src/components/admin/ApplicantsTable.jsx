@@ -49,32 +49,32 @@ const ApplicantsTable = () => {
                     <caption>A list of your recent applied users</caption>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Full Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Contact</TableCell>
-                            <TableCell>Resume</TableCell>
-                            <TableCell>Date</TableCell>
-                            <TableCell align="right">Action</TableCell>
+                            <TableCell className="text-sm sm:text-base">Full Name</TableCell>
+                            <TableCell className="text-sm sm:text-base">Email</TableCell>
+                            <TableCell className="text-sm sm:text-base">Contact</TableCell>
+                            <TableCell className="text-sm sm:text-base">Resume</TableCell>
+                            <TableCell className="text-sm sm:text-base">Date</TableCell>
+                            <TableCell className="text-sm sm:text-base" align="right">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {applicants && applicants?.applications?.map((item) => (
                             <TableRow key={item._id}>
-                                <TableCell>{item?.applicant?.fullname}</TableCell>
-                                <TableCell>{item?.applicant?.email}</TableCell>
-                                <TableCell>{item?.applicant?.phoneNumber}</TableCell>
-                                <TableCell>
+                                <TableCell className="text-sm sm:text-base">{item?.applicant?.fullname}</TableCell>
+                                <TableCell className="text-sm sm:text-base">{item?.applicant?.email}</TableCell>
+                                <TableCell className="text-sm sm:text-base">{item?.applicant?.phoneNumber}</TableCell>
+                                <TableCell className="text-sm sm:text-base">
                                     {item.applicant?.profile?.resume ? (
-                                        <a className="text-blue-600" href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">
+                                        <a className="text-blue-600 text-xs sm:text-sm" href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">
                                             {item?.applicant?.profile?.resumeOriginalName}
                                         </a>
                                     ) : (
                                         <span>NA</span>
                                     )}
                                 </TableCell>
-                                <TableCell>{item?.applicant.createdAt.split("T")[0]}</TableCell>
+                                <TableCell className="text-sm sm:text-base">{item?.applicant.createdAt.split("T")[0]}</TableCell>
                                 <TableCell align="right">
-                                    <IconButton onClick={(event) => handleClick(event, item._id)}>
+                                    <IconButton onClick={(event) => handleClick(event, item._id)} className="p-1">
                                         <MoreVertIcon />
                                     </IconButton>
                                     <Menu
@@ -94,6 +94,7 @@ const ApplicantsTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
             {/* Add ToastContainer to display toast notifications */}
             <ToastContainer />
         </>
@@ -101,3 +102,4 @@ const ApplicantsTable = () => {
 };
 
 export default ApplicantsTable;
+
