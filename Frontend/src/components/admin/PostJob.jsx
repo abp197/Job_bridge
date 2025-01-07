@@ -71,19 +71,22 @@ const PostJob = () => {
   };
 
   return (
-    <div className=' bg-stone-400'>
+    <div
+      className="relative min-h-screen bg-gradient-to-r from-gray-100 to-indigo-50"
+      style={{ backgroundImage: 'url("https://www.hiringlab.org/wp-content/uploads/2022/06/GettyImages-1309760275-3.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
       <Navbar />
-      <div className="flex items-center justify-center w-screen my-5 ">
-        <form onSubmit={submitHandler} className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md bg-white">
+      <div className="flex items-center justify-center w-screen my-5">
+        <form onSubmit={submitHandler} className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md bg-white bg-opacity-90">
           <h2 className="text-xl font-bold mb-4">Post a New Job</h2>
-          <div className="grid grid-cols-2 gap-2 ">
+          <div className="grid grid-cols-2 gap-2">
             {['title', 'description', 'requirements', 'salary', 'location', 'jobType', 'experience', 'position'].map((field, index) => (
               <div key={index}>
                 <label className="block font-medium text-gray-700 capitalize">{field}</label>
                 <input
                   type={field === 'position' || field === 'salary' ? 'number' : 'text'}
                   name={field}
-                  value={input[field]} 
+                  value={input[field]}
                   onChange={changeEventHandler}
                   className="w-full p-2 border border-gray-300 rounded-md my-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   required={field !== 'position'}
@@ -144,3 +147,4 @@ const PostJob = () => {
 };
 
 export default PostJob;
+
