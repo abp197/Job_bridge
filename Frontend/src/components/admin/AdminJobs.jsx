@@ -21,10 +21,10 @@ const AdminJobs = () => {
   return (
     <div
       className="relative min-h-screen bg-gradient-to-r from-gray-100 to-indigo-50"
-      style={{ backgroundImage: 'url("")' }}
+      style={{ backgroundImage: 'url("https://st4.depositphotos.com/2249091/19933/i/450/depositphotos_199333444-stock-photo-friends-working-computer-night-surrounded.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <Navbar />
-      <div className="max-w-6xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg">
+      <div className="max-w-6xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg bg-opacity-80">
         <div className="flex flex-col md:flex-row items-center justify-between my-5 gap-4">
           {/* Search input with icon */}
           <div className="relative w-full max-w-md">
@@ -69,3 +69,4 @@ const AdminJobs = () => {
 };
 
 export default AdminJobs;
+
