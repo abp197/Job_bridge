@@ -51,35 +51,55 @@ const JobDescription = () => {
     }, [jobId, dispatch, user?._id]);
 
     return (
-        <div className='max-w-7xl mx-auto my-10 px-4'>
-            <div className='flex items-center justify-between flex-col sm:flex-row'>
-                <div>
-                    <h1 className='font-bold text-xl'>{singleJob?.title || "N/A"}</h1>
-                    <div className='flex items-center gap-2 mt-4 flex-wrap justify-center sm:justify-start'>
-                        <Chip label={`${singleJob?.position || 0} Positions`} className='text-blue-700 font-bold' variant="outlined" />
-                        <Chip label={singleJob?.jobType || "N/A"} className='text-[#F83002] font-bold' variant="outlined" />
-                        <Chip label={`${singleJob?.salary || "N/A"} LPA`} className='text-[#7209b7] font-bold' variant="outlined" />
+        <div className='max-w-7xl mx-auto my-10 px-4 '>
+            {/* Job Header Section */}
+            <div className='bg-gradient-to-r from-[#F2F4F9] via-[#E0E6F1] to-[#C0C9D9] shadow-lg rounded-lg p-6 mb-8'>
+                <div className='flex items-center justify-between flex-col sm:flex-row'>
+                    <div>
+                        <h1 className='font-extrabold text-2xl sm:text-3xl text-gray-800'>{singleJob?.title || "N/A"}</h1>
+                        <div className='flex items-center gap-2 mt-4 flex-wrap justify-center sm:justify-start'>
+                            <Chip label={`${singleJob?.position || 0} Positions`} className='text-blue-700 font-semibold' variant="outlined" />
+                            <Chip label={singleJob?.jobType || "N/A"} className='text-[#F83002] font-semibold' variant="outlined" />
+                            <Chip label={`${singleJob?.salary || "N/A"} LPA`} className='text-[#7209b7] font-semibold' variant="outlined" />
+                        </div>
+                    </div>
+                    <Button
+                        onClick={isApplied ? null : applyJobHandler}
+                        disabled={isApplied}
+                        variant="contained"
+                        className={`rounded-lg mt-4 sm:mt-0 ${isApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-[#3f62ec]'}`}
+                    >
+                        {isApplied ? 'Already Applied' : 'Apply Now'}
+                    </Button>
+                </div>
+            </div>
+
+            {/* Job Description Section */}
+            <div className="space-y-6 bg-gradient-to-b from-[#FAF8FF] to-[#e0dddd] p-6 rounded-lg shadow-lg">
+                <h2 className="border-b-2 border-gray-300 font-semibold text-xl">Job Description</h2>
+                <div className="space-y-4">
+                    <div>
+                        <h3 className="font-semibold text-lg">Role: <span className="pl-4  text-blue-800 font-normal">{singleJob?.title || "N/A"}</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg">Location: <span className="pl-4  text-blue-800 font-normal">{singleJob?.location || "N/A"}</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg">Description: <span className="pl-4  text-blue-800 font-normal">{singleJob?.description || "N/A"}</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg">Experience: <span className="pl-4  text-blue-800 font-normal">{singleJob?.experience || "N/A"} years</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg">Salary: <span className="pl-4  text-blue-800 font-normal">{singleJob?.salary || "N/A"} LPA</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg">Total Applicants: <span className="pl-4  text-blue-800 font-normal">{singleJob?.applications?.length || 0}</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg">Posted Date: <span className="pl-4  text-blue-800 font-normal">{singleJob?.createdAt?.split("T")[0] || "N/A"}</span></h3>
                     </div>
                 </div>
-                <Button
-                    onClick={isApplied ? null : applyJobHandler}
-                    disabled={isApplied}
-                    variant="contained"
-                    className={`rounded-lg mt-4 sm:mt-0 ${isApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-[#3f62ec]'}`}
-                    style={{ backgroundColor: isApplied ? 'gray' : '#7209b7' }}
-                >
-                    {isApplied ? 'Already Applied' : 'Apply Now'}
-                </Button>
-            </div>
-            <h1 className='border-b-2 border-b-gray-300 font-medium py-4 mt-8'>Job Description</h1>
-            <div className='my-4'>
-                <h1 className='font-bold my-1'>Role: <span className='pl-4 font-normal text-gray-800'>{singleJob?.title || "N/A"}</span></h1>
-                <h1 className='font-bold my-1'>Location: <span className='pl-4 font-normal text-gray-800'>{singleJob?.location || "N/A"}</span></h1>
-                <h1 className='font-bold my-1'>Description: <span className='pl-4 font-normal text-gray-800'>{singleJob?.description || "N/A"}</span></h1>
-                <h1 className='font-bold my-1'>Experience: <span className='pl-4 font-normal text-gray-800'>{singleJob?.experience || "N/A"} yrs</span></h1>
-                <h1 className='font-bold my-1'>Salary: <span className='pl-4 font-normal text-gray-800'>{singleJob?.salary || "N/A"} LPA</span></h1>
-                <h1 className='font-bold my-1'>Total Applicants: <span className='pl-4 font-normal text-gray-800'>{singleJob?.applications?.length || 0}</span></h1>
-                <h1 className='font-bold my-1'>Posted Date: <span className='pl-4 font-normal text-gray-800'>{singleJob?.createdAt?.split("T")[0] || "N/A"}</span></h1>
             </div>
         </div>
     );
