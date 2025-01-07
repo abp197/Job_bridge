@@ -54,9 +54,7 @@ const ApplicantsTable = () => {
     return (
         <div
             className="p-4 min-h-screen bg-cover bg-center bg-no-repeat"
-            style={{
-                backgroundImage: `url('https://disabilityinsider.com/wp-content/uploads/2022/02/close-up-hand-with-laptop-838x525.jpg')`, // Replace with your image URL
-            }}
+         
         >
             <TableContainer component={Paper} className="bg-opacity-90">
                 <Table>
